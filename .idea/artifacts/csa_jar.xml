@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="csa:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/csa_jar</output-path>
+    <root id="archive" name="csa.jar">
+      <element id="module-output" name="csa" />
+    </root>
+  </artifact>
+</component>
