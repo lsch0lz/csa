@@ -8,7 +8,7 @@ package uebung2.aufgabe4;
  * https://commons.apache.org/proper/commons-net/examples/ntp/NTPClient.java
  *
  * Vorgehen:
- * 
+ *
  *
  */
 
