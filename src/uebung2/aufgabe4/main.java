@@ -26,7 +26,47 @@ public class main {
     private static final NumberFormat numberFormat = new java.text.DecimalFormat("0.00");
 
     /**
+     * NTPUDPClient erstellen und darüber die NTP-Zeitangaben der in einer
+     * ArrayList vordefinierten NTP-Server holen,
+     * folglich die Hilfsmethode processResponse() aufrufen,
+     * damit diese das erhaltene Ergebnis richtig formattiert ausgibt.
+     */
+    public static void main(final String[] args) {
+        // Liste:
+        // http://www.hullen.de/helmut/filebox/DCF77/ntpsrvr.html
+
+        ArrayList<String> NTPServers = new ArrayList<>();
+        NTPServers.add("134.130.4.17"); // rwth-aachen.de
+        NTPServers.add("134.130.5.17"); // rwth-aachen.de
+        NTPServers.add("130.149.17.21"); // tu-berlin.de
+        NTPServers.add("129.69.1.153"); // uni-stuttgart.de
+        NTPServers.add("193.171.23.164"); // univie.ac.at
+
+        final NTPUDPClient client = new NTPUDPClient();
+        // We want to timeout if a response takes longer than 10 seconds
+        client.setDefaultTimeout(10000);
+        try {
+            client.open();
+            for (final String arg : NTPServers) {
+                System.out.println();
+                try {
+                    final InetAddress hostAddr = InetAddress.getByName(arg);
+                    System.out.println("> " + hostAddr.getHostName() + " / " + hostAddr.getHostAddress());
+                    final TimeInfo info = client.getTime(hostAddr);
+                    processResponse(info);
+                } catch (final IOException ioe) {
+                    ioe.printStackTrace();
+                }
+            }
+        } catch (final SocketException e) {
+            e.printStackTrace();
+        }
+        client.close();
+    }
+
+    /**
      * Process <code>TimeInfo</code> object and print its details.
+     *
      * @param info <code>TimeInfo</code> object.
      */
     public static void processResponse(final TimeInfo info) {
@@ -120,45 +160,5 @@ public class main {
         System.out.println(" Roundtrip delay(ms)=" + delay
                 + ", clock offset(ms)=" + offset); // offset in ms
     }
-
-    public static void main(final String[] args) {
-        //if (args.length == 0) {
-        //    System.err.println("Usage: NTPClient <hostname-or-address-list>");
-        //    System.exit(1);
-        //}
-        
-        // Liste:
-        // http://www.hullen.de/helmut/filebox/DCF77/ntpsrvr.html
-
-        ArrayList<String> NTPServers = new ArrayList<>();
-        NTPServers.add("134.130.4.17"); // rwth-aachen.de
-        NTPServers.add("134.130.5.17"); // rwth-aachen.de
-        NTPServers.add("130.149.17.21"); // tu-berlin.de
-        NTPServers.add("129.69.1.153"); // uni-stuttgart.de
-        NTPServers.add("193.171.23.164"); // univie.ac.at
-
-        final NTPUDPClient client = new NTPUDPClient();
-        // We want to timeout if a response takes longer than 10 seconds
-        client.setDefaultTimeout(10000);
-        try {
-            client.open();
-            for (final String arg : NTPServers) {
-                System.out.println();
-                try {
-                    final InetAddress hostAddr = InetAddress.getByName(arg);
-                    System.out.println("> " + hostAddr.getHostName() + "/" + hostAddr.getHostAddress());
-                    final TimeInfo info = client.getTime(hostAddr);
-                    processResponse(info);
-                } catch (final IOException ioe) {
-                    ioe.printStackTrace();
-                }
-            }
-        } catch (final SocketException e) {
-            e.printStackTrace();
-        }
-
-        client.close();
-    }
-
 
 }
