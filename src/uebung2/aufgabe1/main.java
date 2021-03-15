@@ -40,15 +40,16 @@ public class main {
             }
         }
 
-        List<String> ip = Arrays.asList("8.8.8.8");
+        List<String> ip = Arrays.asList("8.8.8.8", "104.121.135.247S");
 
         for (int i = 0; i < ip.size(); i++) {
             try {
-                String domain = domains.get(i);
-                String final_domain = "host " + ip;
-                System.out.println(final_domain);
+                String domain = ip.get(i);
+                System.out.println(domain);
 
-                processBuilder.command("bash", "-c", final_domain);
+                String final_domain = "ping " + domain;
+
+                processBuilder.command("bash", "-a", final_domain);
                 Process process = processBuilder.start();
 
                 BufferedReader reader =
@@ -57,8 +58,9 @@ public class main {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     System.out.println(line);
-
+                    break;
                 }
+
                 process.destroy();
 
 
