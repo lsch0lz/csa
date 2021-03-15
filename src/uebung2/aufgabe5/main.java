@@ -10,13 +10,14 @@ import java.util.List;
 
 public class main {
     public static void main(String[] args) throws UnknownHostException {
-        List<String> domains = Arrays.asList("104.121.135.247", "142.250.185.163" );
+        List<String> domains = Arrays.asList("www.tagesschau.de", "www.google.de" );
 
         try {
             for(int i = 0; i < domains.size(); i++){
-                System.out.println("1");
+
                 String domain = domains.get(i);
                 InetAddress adress = InetAddress.getByName(domain);
+                System.out.println(adress);
 
                 Socket socket = new Socket(adress, 80);
                 OutputStream out = socket.getOutputStream();
