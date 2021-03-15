@@ -40,7 +40,7 @@ public class main {
             }
         }
 
-        List<String> ip = Arrays.asList("8.8.8.8", "104.121.135.247S");
+        List<String> ip = Arrays.asList("8.8.8.8", "104.121.135.247");
 
         for (int i = 0; i < ip.size(); i++) {
             try {
