@@ -1,4 +1,4 @@
-package uebung2.aufgabe3;
+package uebung2.aufgabe3.version1;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -30,7 +30,7 @@ public class Server extends Thread {
                 // Empfänger auslesen, aber Paketinhalt ignorieren
                 InetAddress adress = packet.getAddress();
                 int port   = packet.getPort();
-                System.out.println(prefix + "'-> Cleint " + packet.getAddress() +
+                System.out.println(prefix + "'-> Client " + packet.getAddress() +
                         ":" + packet.getPort());
                 // Paket für Empfänger zusammenbauen
                 System.out.println(prefix + "'-> Erstelle Antwort-Paket.");

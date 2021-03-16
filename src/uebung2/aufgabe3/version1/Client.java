@@ -1,4 +1,4 @@
-package uebung2.aufgabe3;
+package uebung2.aufgabe3.version1;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -32,9 +32,9 @@ public class Client extends Thread {
                 DatagramSocket fromSocket = toSocket;
                 //new DatagramSocket();
                 packet = new DatagramPacket(data, data.length);
-                System.out.println(prefix + "'-> Auf Antowrt warten.");
+                System.out.println(prefix + "'-> Auf Antwort warten.");
                 fromSocket.receive(packet);
-                System.out.println(prefix + "Antowrt empfangen:");
+                System.out.println(prefix + "Antwort empfangen:");
                 String s = prefix + "'-> Server " + packet.getAddress() +
                         ":" + packet.getPort() +
                         " => " + new String(packet.getData());
