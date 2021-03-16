@@ -13,8 +13,13 @@ public class main {
         serverList.add("time.fu-berlin.de");
         serverList.add("zeit.fu-berlin.de");
 
-        for (int i = 0; i < serverList.size(); i++) {
-            getTime(serverList.get(i));
+        try {
+            for (int i = 0; i < serverList.size(); i++) {
+                getTime(serverList.get(i));
+                Thread.sleep(1000);
+            }
+        } catch (Exception e) {
+            System.out.println("Fehler: " + e.toString());
         }
 
     }
