@@ -12,6 +12,8 @@ public class main {
         ArrayList<String> serverList = new ArrayList<>();
         serverList.add("time.fu-berlin.de");
         serverList.add("zeit.fu-berlin.de");
+        // serverList.add("time.nist.gov");
+        // serverList.add("ptbtime1.ptb.de");
 
         try {
             for (int i = 0; i < serverList.size(); i++) {
