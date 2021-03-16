@@ -18,7 +18,7 @@ public class main {
 
         try {
 
-            s = new ServerSocket(5000, 10);
+            s = new ServerSocket(13, 10);
 
             echo("Server Socket created! Waiting for connection..");
 
