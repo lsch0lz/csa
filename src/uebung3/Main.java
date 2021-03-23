@@ -1,14 +1,11 @@
 package uebung3;
 
 import java.sql.*;
+import uebung3.secrets;
 
-public class Main {
+public class Main implements secrets{
 
     public static void main(String[] args) throws SQLException {
-
-        String url = "jdbc:mysql://lukasscholz.de:3306/d035dbd4?useSSL=false&serverTimezone=Europe/Warsaw";
-        String user = "d035dbd4";
-        String password = "uN5s45ppG2G3YwJ5";
 
         Connection conn = DriverManager.getConnection(url, user, password);
 
