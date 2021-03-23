@@ -21,6 +21,7 @@ public class Server extends Thread{
         server.createContext("/index.html", new MyHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
+        System.out.println("Der Server läuft... unter: localhost:8000/index.html");
     }
 
     static class MyHandler implements HttpHandler {
@@ -29,12 +30,12 @@ public class Server extends Thread{
             String response = "<!DOCTYPE html>\n" +
                     "<html>\n" +
                     "<head>\n" +
-                    "<title>Page Title</title>\n" +
+                    "<title>Java Webserver</title>\n" +
                     "</head>\n" +
                     "<body>\n" +
                     "\n" +
-                    "<h1>Wilkommen auf meinem WebServer</h1>\n" +
-                    "<p>Dies ist ein WebServer, welcher mithilfe der Klasse HttpServer implementiert wurde</p>\n"+"<img src=\"https://media.giphy.com/media/blSTtZehjAZ8I/giphy.gif\" alt=\"this slowpoke moves\"  width=250/>\n" +
+                    "<center><h1>Wilkommen auf meinem WebServer</h1></center>\n" +
+                    "<center><p>Dies ist ein WebServer, welcher mithilfe der Klasse HttpServer implementiert wurde</p></center>\n"+"<center><img src=\"https://media.giphy.com/media/blSTtZehjAZ8I/giphy.gif\" alt=\"this slowpoke moves\"  width=250/></center>\n" +
                     "\n" +
                     "</body>\n" +
                     "</html>";
