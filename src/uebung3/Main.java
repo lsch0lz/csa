@@ -1,26 +1,22 @@
 package uebung3;
 
 import java.sql.*;
-import uebung3.secrets;
 
 public class Main implements secrets {
 
     public static void main(String[] args) throws SQLException {
-
-<<<<<<< HEAD
-        insert("Dang", "Duy Anh", 10315, "Berlin", "Deutschland", "Hauptstrasse 15");
-        select();
-=======
+        System.out.println(url);
         insertKunde("Mustermann", "Max", 12345, "Berlin", "Deutschland", "Musterstraße 123");
         insertKundePS("Scholz", "Lukas", 10315, "Berlin", "Deutschland", "Hauptstrasse 10");
         outputKunde();
->>>>>>> d5da52b9ef8528db95578625db72d41657924b73
-
+        updateTable("Kunde", "Name", "Meier", "Vorname", "Lukas");
+        outputKunde();
         emptyTable("Kunde");
         outputKunde();
 
     }
 
+    //insert Statement
     public static void insertKunde(String name, String vorname, int plz, String ort, String land, String strassehnr) throws SQLException  {
         Connection conn = DriverManager.getConnection(url, user, password);
         String insert = "INSERT INTO Kunde (Name, Vorname, PLZ, Ort, Land, StrasseHnr) VALUES ('" + name + "', '" + vorname + "', '" + plz +"', '" + ort + "', '" + land + "', '" + strassehnr + "');";
@@ -31,7 +27,7 @@ public class Main implements secrets {
         conn.close();
     }
 
-
+    //insert PreparedStatement
     public static void insertKundePS(String name, String vorname, int plz, String ort, String land, String strassehnr) throws SQLException {
         Connection conn = DriverManager.getConnection(url, user, password);
         String insert = "INSERT INTO Kunde (Name, Vorname, PLZ, Ort, Land, StrasseHnr) VALUES (?, ?, ?, ?, ?, ?)";
@@ -51,6 +47,7 @@ public class Main implements secrets {
         conn.close();
     }
 
+    //select
     public static void outputKunde() throws  SQLException{
         System.out.println("--------------------------");
         System.out.println("Gebe Tabelle 'Kunde' aus: ");
@@ -84,6 +81,7 @@ public class Main implements secrets {
         System.out.println();
     }
 
+    //delete Statement
     public static void emptyTable(String table) throws SQLException {
         Connection conn = DriverManager.getConnection(url, user, password);
 
@@ -94,6 +92,20 @@ public class Main implements secrets {
         conn.close();
 
         System.out.println("Leere Tabelle '" + table + "'.");
+
+    }
+
+    //update Statement
+    public static void updateTable(String table, String changingColumn, String changingValue, String column, String value) throws SQLException {
+        Connection conn = DriverManager.getConnection(url, user, password);
+
+        String update = "UPDATE "  + table  + " SET " +  changingColumn + "= " + "'" + changingValue + "'" + " WHERE " + column + "= " + "'" + value + "'" + ";";
+        Statement stmt = conn.createStatement();
+        stmt.execute(update);
+
+        conn.close();
+
+        System.out.println("Verändere Tabelle '" + table + "'.");
 
     }
 
