@@ -11,6 +11,8 @@ public class Main implements secrets {
         outputKunde();
         updateTable("Kunde", "Name", "Meier", "Vorname", "Lukas");
         outputKunde();
+        updateTablePS("Kunde", "Name", "Scholz", "Vorname", "Lukas");
+        outputKunde();
         emptyTable("Kunde");
         outputKunde();
 
@@ -107,6 +109,23 @@ public class Main implements secrets {
 
         System.out.println("Verändere Tabelle '" + table + "'.");
 
+    }
+
+    //update PreparedStatement
+    public static void updateTablePS(String table, String changingColumn, String changingValue, String column, String value) throws SQLException {
+
+        Connection conn = DriverManager.getConnection(url, user, password);
+
+        PreparedStatement ps = conn.prepareStatement("UPDATE Kunde SET Name= ? WHERE Vorname= ?;");
+
+        ps.setString(1, changingValue);
+        ps.setString(2, value);
+
+        System.out.println("Verändere Tabelle '" + table + "'.");
+
+        ps.executeUpdate();
+        ps.close();
+        conn.close();
     }
 
 
