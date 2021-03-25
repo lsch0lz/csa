@@ -5,9 +5,18 @@ import java.sql.*;
 public class Main implements secrets {
 
     public static void main(String[] args) throws SQLException {
-        System.out.println(url);
+
+        long startTimeStatement = System.nanoTime();
         insertKunde("Mustermann", "Max", 12345, "Berlin", "Deutschland", "Musterstraße 123");
+        long stopTimeStatement = System.nanoTime();
+        long timeStatement = stopTimeStatement - startTimeStatement;
+        System.out.println("Statement: " + timeStatement);
+
+        long startTimePreparedStatement = System.nanoTime();
         insertKundePS("Scholz", "Lukas", 10315, "Berlin", "Deutschland", "Hauptstrasse 10");
+        long stopTimePreparedStatement = System.nanoTime();
+        long timePS = stopTimePreparedStatement - startTimePreparedStatement;
+        System.out.println("PreparedStatement: " + timePS);
         outputKunde();
         updateTable("Kunde", "Name", "Meier", "Vorname", "Lukas");
         outputKunde();
