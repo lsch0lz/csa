@@ -7,7 +7,7 @@ public class Main implements secrets{
 
     public static void main(String[] args) throws SQLException {
 
-        //insert("Scholz", "Lukas", 10315, "Berlin", "Deutschland", "Hauptstrasse 10");
+        insert("Dang", "Duy Anh", 10315, "Berlin", "Deutschland", "Hauptstrasse 15");
         select();
 
 
