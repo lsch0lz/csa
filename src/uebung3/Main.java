@@ -23,6 +23,19 @@ public class Main implements secrets {
         outputKunde();
         updateTablePS("Kunde", "Name", "Scholz", "Vorname", "Lukas");
         outputKunde();
+
+        long startTimeStatementSelect = System.nanoTime();
+        selectKunde("Scholz");
+        long stopTimeStatementSelect = System.nanoTime();
+        long timeStatementSelect = stopTimeStatementSelect - startTimeStatementSelect;
+        System.out.println("Zeit SELECT Statement: " + timeStatementSelect);
+
+        long startTimePSSelect = System.nanoTime();
+        selectKundePS("Scholz");
+        long stopTimePSSelect = System.nanoTime();
+        long timePSSelect = stopTimePSSelect - startTimePSSelect;
+        System.out.println("Zeit SELECT PreparedStatement: " + timePSSelect);
+
         long startTimeStatementDelete = System.nanoTime();
         deleteKundePS("Mustermann");
         long stopTimeStatementDelete = System.nanoTime();
@@ -121,6 +134,30 @@ public class Main implements secrets {
 
         System.out.println("Leere Tabelle '" + table + "'.");
 
+    }
+
+    public static void selectKunde(String name) throws SQLException{
+        Connection conn = DriverManager.getConnection(url, user, password);
+
+        String select = "SELECT * FROM Kunde WHERE Name= " + "'" + name + "';";
+        Statement statement = conn.createStatement();
+
+        System.out.println("Gebe Kunden: " + name + " aus.");
+        statement.execute(select);
+
+        conn.close();
+    }
+
+    public  static void selectKundePS(String name) throws SQLException{
+        Connection conn = DriverManager.getConnection(url, user, password);
+
+        PreparedStatement ps = conn.prepareStatement("SELECT * FROM Kunde WHERE Name= ?");
+        ps.setString(1, name);
+        System.out.println("Gebe Kunden: " + name + " aus.");
+
+        ps.executeQuery();
+        ps.close();
+        conn.close();
     }
 
     public static void deleteKunde(String name) throws SQLException{
