@@ -10,17 +10,34 @@ public class Main implements secrets {
         insertKunde("Mustermann", "Max", 12345, "Berlin", "Deutschland", "Musterstraße 123");
         long stopTimeStatement = System.nanoTime();
         long timeStatement = stopTimeStatement - startTimeStatement;
-        System.out.println("Statement: " + timeStatement);
+        System.out.println("Zeit INSERT Statement: " + timeStatement);
 
         long startTimePreparedStatement = System.nanoTime();
         insertKundePS("Scholz", "Lukas", 10315, "Berlin", "Deutschland", "Hauptstrasse 10");
         long stopTimePreparedStatement = System.nanoTime();
         long timePS = stopTimePreparedStatement - startTimePreparedStatement;
-        System.out.println("PreparedStatement: " + timePS);
+        System.out.println("Zeit INSERT PreparedStatement: " + timePS);
+
         outputKunde();
         updateTable("Kunde", "Name", "Meier", "Vorname", "Lukas");
         outputKunde();
         updateTablePS("Kunde", "Name", "Scholz", "Vorname", "Lukas");
+        outputKunde();
+        long startTimeStatementDelete = System.nanoTime();
+        deleteKundePS("Mustermann");
+        long stopTimeStatementDelete = System.nanoTime();
+        long timeStatementDelete = stopTimeStatementDelete - startTimeStatementDelete;
+        System.out.println("Zeit DELETE Statement: " + timeStatementDelete);
+
+        outputKunde();
+        insertKunde("Mustermann", "Max", 12345, "Berlin", "Deutschland", "Musterstraße 123");
+
+        long startTimePreparedStatementDelete = System.nanoTime();
+        deleteKundePS("Scholz");
+        long stopTimePreparedStatementDelete = System.nanoTime();
+        long timePreparedStatementDelete = stopTimePreparedStatementDelete -startTimePreparedStatementDelete;
+        System.out.println("Zeit DELETE PreparedStatement: " + timePreparedStatementDelete);
+
         outputKunde();
         emptyTable("Kunde");
         outputKunde();
@@ -103,6 +120,33 @@ public class Main implements secrets {
         conn.close();
 
         System.out.println("Leere Tabelle '" + table + "'.");
+
+    }
+
+    public static void deleteKunde(String name) throws SQLException{
+        Connection conn = DriverManager.getConnection(url, user, password);
+
+        String delete = "DELETE FROM KUNDE WHERE Name= " + "`" + name + "`;";
+        Statement stmt = conn.createStatement();
+        stmt.execute(delete);
+
+        System.out.println("Lösche Kunde'" + name + "'.");
+
+        conn.close();
+    }
+
+    public static void deleteKundePS(String name) throws SQLException{
+        Connection conn = DriverManager.getConnection(url, user, password);
+
+        PreparedStatement ps = conn.prepareStatement("DELETE FROM Kunde WHERE Name= ?");
+
+        ps.setString(1, name);
+
+        System.out.println("Lösche Kunde'" + name + "'.");
+
+        ps.executeUpdate();
+        ps.close();
+        conn.close();
 
     }
 
