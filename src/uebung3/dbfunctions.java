@@ -4,6 +4,20 @@ import java.sql.*;
 
 public class dbfunctions implements secrets {
 
+    public static void print(String msg){
+        System.out.println(msg);
+    }
+    public static long startTime() {
+        long start = System.nanoTime();
+        return start;
+    }
+
+    public static void stopTime(){
+        long start = startTime();
+        long stop = System.nanoTime();
+        long time = stop - start;
+        print("Zeit des Querys: " + time);
+    }
     public static Connection conn() throws SQLException{
         Connection conn = DriverManager.getConnection(url, user, password);
         return conn;
@@ -42,9 +56,9 @@ public class dbfunctions implements secrets {
 
     //select
     public static void outputKunde() throws  SQLException{
-        System.out.println("--------------------------");
-        System.out.println("Gebe Tabelle 'Kunde' aus: ");
-        System.out.println();
+        print("--------------------------");
+        print("Gebe Tabelle 'Kunde' aus: ");
+        print(" ");
 
         Connection conn = conn();
 
@@ -64,14 +78,14 @@ public class dbfunctions implements secrets {
             String strassehnr = result.getString("StrasseHnr");
 
 
-            System.out.println(name + " " + vorname + " " + plz + " " + ort + " " + land + " " + k_id + " " + strassehnr);
+            print(name + " " + vorname + " " + plz + " " + ort + " " + land + " " + k_id + " " + strassehnr);
         }
         conn.close();
 
-        System.out.println();
-        System.out.println("Ende der Tabelle 'Kunde'.");
-        System.out.println("--------------------------");
-        System.out.println();
+        print("");
+        print("Ende der Tabelle 'Kunde'.");
+        print("--------------------------");
+        print("");
     }
 
     //delete Statement
@@ -84,7 +98,7 @@ public class dbfunctions implements secrets {
 
         conn.close();
 
-        System.out.println("Leere Tabelle '" + table + "'.");
+        print("Leere Tabelle '" + table + "'.");
 
     }
 
@@ -94,7 +108,7 @@ public class dbfunctions implements secrets {
         String select = "SELECT * FROM Kunde WHERE Name= " + "'" + name + "';";
         Statement statement = conn.createStatement();
 
-        System.out.println("Gebe Kunden: " + name + " aus.");
+        print("Gebe Kunden: " + name + " aus.");
         statement.execute(select);
 
         conn.close();
@@ -105,7 +119,7 @@ public class dbfunctions implements secrets {
 
         PreparedStatement ps = conn.prepareStatement("SELECT * FROM Kunde WHERE Name= ?");
         ps.setString(1, name);
-        System.out.println("Gebe Kunden: " + name + " aus.");
+        print("Gebe Kunden: " + name + " aus.");
 
         ps.executeQuery();
         ps.close();
@@ -119,7 +133,7 @@ public class dbfunctions implements secrets {
         Statement stmt = conn.createStatement();
         stmt.execute(delete);
 
-        System.out.println("Lösche Kunde'" + name + "'.");
+        print("Lösche Kunde'" + name + "'.");
 
         conn.close();
     }
@@ -131,7 +145,7 @@ public class dbfunctions implements secrets {
 
         ps.setString(1, name);
 
-        System.out.println("Lösche Kunde'" + name + "'.");
+        print("Lösche Kunde'" + name + "'.");
 
         ps.executeUpdate();
         ps.close();
@@ -149,7 +163,7 @@ public class dbfunctions implements secrets {
 
         conn.close();
 
-        System.out.println("Verändere Tabelle '" + table + "'.");
+        print("Verändere Tabelle '" + table + "'.");
 
     }
 
@@ -163,7 +177,7 @@ public class dbfunctions implements secrets {
         ps.setString(1, changingValue);
         ps.setString(2, value);
 
-        System.out.println("Verändere Tabelle '" + table + "'.");
+        print("Verändere Tabelle '" + table + "'.");
 
         ps.executeUpdate();
         ps.close();

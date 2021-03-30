@@ -6,17 +6,14 @@ public class Main implements secrets {
 
     public static void main(String[] args) throws SQLException {
 
-        long startTimeStatement = System.nanoTime();
+        dbfunctions.startTime();
         dbfunctions.insertKunde("Mustermann", "Max", 12345, "Berlin", "Deutschland", "Musterstraße 123");
-        long stopTimeStatement = System.nanoTime();
-        long timeStatement = stopTimeStatement - startTimeStatement;
-        System.out.println("Zeit INSERT Statement: " + timeStatement);
+        dbfunctions.stopTime();
 
-        long startTimePreparedStatement = System.nanoTime();
+        dbfunctions.startTime();
         dbfunctions.insertKundePS("Scholz", "Lukas", 10315, "Berlin", "Deutschland", "Hauptstrasse 10");
-        long stopTimePreparedStatement = System.nanoTime();
-        long timePS = stopTimePreparedStatement - startTimePreparedStatement;
-        System.out.println("Zeit INSERT PreparedStatement: " + timePS);
+        dbfunctions.stopTime();
+
 
         dbfunctions.outputKunde();
         dbfunctions.updateTable("Kunde", "Name", "Meier", "Vorname", "Lukas");
