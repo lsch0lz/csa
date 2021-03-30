@@ -1,5 +1,7 @@
 package uebung3;
 
+import uebung3.DB.dbfunctions;
+
 import java.sql.*;
 
 public class Main implements secrets {

@@ -1,4 +1,6 @@
-package uebung3;
+package uebung3.DB;
+
+import uebung3.secrets;
 
 import java.sql.*;
 
