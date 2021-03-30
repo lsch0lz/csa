@@ -21,6 +21,7 @@ public class Main implements secrets {
      */
     public static void getDBContent() throws SQLException {
         getKunden(kunden);
+        getBestellungen(bestellungen);
     }
 
     public static void main(String[] args) throws Exception {

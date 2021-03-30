@@ -1,5 +1,6 @@
 package uebung3.DB;
 
+import uebung3.DTO.Bestellung;
 import uebung3.DTO.Kunde;
 import uebung3.secrets;
 
@@ -77,8 +78,22 @@ public class DBFunctions implements secrets {
             String strassehnr = result.getString("StrasseHnr");
 
             kunden.add(new Kunde(k_id, name, vorname, plz, ort, land, strassehnr));
+        }
+        conn.close();
+    }
 
-            //print(name + " " + vorname + " " + plz + " " + ort + " " + land + " " + k_id + " " + strassehnr);
+    //select
+    public static void getBestellungen(ArrayList<Bestellung> bestellungen) throws  SQLException {
+        Connection conn = conn();
+        String query = "SELECT * FROM Bestellung";
+        Statement statement = conn.createStatement();
+        ResultSet result = statement.executeQuery(query);
+
+        while(result.next()) {
+            long bID = result.getLong("B-ID");
+            long kID = result.getLong("K-ID");
+
+            bestellungen.add(new Bestellung(bID, kID));
         }
         conn.close();
     }
