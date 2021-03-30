@@ -56,11 +56,11 @@ public class Kunde {
     }
 
     public String getLand() {
-        return Land;
+        return land;
     }
 
     public void setLand(String land) {
-        Land = land;
+        this.land = land;
     }
 
     public String getStrasseHnr() {
