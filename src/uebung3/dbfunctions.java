@@ -17,6 +17,7 @@ public class dbfunctions implements secrets {
         long stop = System.nanoTime();
         long time = stop - start;
         print("Zeit des Querys: " + time);
+        print("");
     }
     public static Connection conn() throws SQLException{
         Connection conn = DriverManager.getConnection(url, user, password);
@@ -30,7 +31,7 @@ public class dbfunctions implements secrets {
 
         Statement stmt = conn.createStatement();
         stmt.executeUpdate(insert);
-
+        print("Insert Statement");
         conn.close();
     }
 
@@ -50,7 +51,7 @@ public class dbfunctions implements secrets {
 
 
         statement.executeUpdate();
-
+        print("Insert Prepared Statement");
         conn.close();
     }
 
@@ -98,7 +99,7 @@ public class dbfunctions implements secrets {
 
         conn.close();
 
-        print("Leere Tabelle '" + table + "'.");
+        print("Leere Tabelle '" + table + "'");
 
     }
 
@@ -108,9 +109,21 @@ public class dbfunctions implements secrets {
         String select = "SELECT * FROM Kunde WHERE Name= " + "'" + name + "';";
         Statement statement = conn.createStatement();
 
-        print("Gebe Kunden: " + name + " aus.");
-        statement.execute(select);
+        print("Gebe Kunden: " + name + " aus");
+        ResultSet result = statement.executeQuery(select);
+        while(result.next()) {
+            String nameKunde = result.getString("Name");
+            String vorname = result.getString("Vorname");
+            int plz = result.getInt("PLZ");
+            String ort = result.getString("Ort");
+            String land = result.getString("Land");
+            int k_id = result.getInt("K-ID");
+            String strassehnr = result.getString("StrasseHnr");
 
+            print(nameKunde + " " + vorname + " " + plz + " " + ort + " " + land + " " + k_id + " " + strassehnr);
+        }
+        print("");
+        print("Select Statement");
         conn.close();
     }
 
@@ -119,9 +132,22 @@ public class dbfunctions implements secrets {
 
         PreparedStatement ps = conn.prepareStatement("SELECT * FROM Kunde WHERE Name= ?");
         ps.setString(1, name);
-        print("Gebe Kunden: " + name + " aus.");
+        print("Gebe Kunden: " + name + " aus");
 
-        ps.executeQuery();
+        ResultSet result = ps.executeQuery();
+        while(result.next()) {
+            String nameKunde = result.getString("Name");
+            String vorname = result.getString("Vorname");
+            int plz = result.getInt("PLZ");
+            String ort = result.getString("Ort");
+            String land = result.getString("Land");
+            int k_id = result.getInt("K-ID");
+            String strassehnr = result.getString("StrasseHnr");
+
+            print(nameKunde + " " + vorname + " " + plz + " " + ort + " " + land + " " + k_id + " " + strassehnr);
+        }
+        print("");
+        print("Select PreparedStatement");
         ps.close();
         conn.close();
     }
@@ -131,10 +157,9 @@ public class dbfunctions implements secrets {
 
         String delete = "DELETE FROM KUNDE WHERE Name= " + "`" + name + "`;";
         Statement stmt = conn.createStatement();
-        stmt.execute(delete);
-
         print("Lösche Kunde'" + name + "'.");
-
+        stmt.execute(delete);
+        print("Delete Statement");
         conn.close();
     }
 
@@ -148,6 +173,7 @@ public class dbfunctions implements secrets {
         print("Lösche Kunde'" + name + "'.");
 
         ps.executeUpdate();
+        print("Delete PreparedStatement");
         ps.close();
         conn.close();
 
@@ -159,11 +185,12 @@ public class dbfunctions implements secrets {
 
         String update = "UPDATE "  + table  + " SET " +  changingColumn + "= " + "'" + changingValue + "'" + " WHERE " + column + "= " + "'" + value + "'" + ";";
         Statement stmt = conn.createStatement();
+        print("Verändere Tabelle '" + table + "'.");
         stmt.execute(update);
-
+        print("Update Statement");
         conn.close();
 
-        print("Verändere Tabelle '" + table + "'.");
+
 
     }
 
@@ -181,6 +208,7 @@ public class dbfunctions implements secrets {
 
         ps.executeUpdate();
         ps.close();
+        print("Update PreparedStatment");
         conn.close();
     }
 }

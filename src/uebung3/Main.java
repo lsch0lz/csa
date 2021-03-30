@@ -14,39 +14,39 @@ public class Main implements secrets {
         dbfunctions.insertKundePS("Scholz", "Lukas", 10315, "Berlin", "Deutschland", "Hauptstrasse 10");
         dbfunctions.stopTime();
 
-
         dbfunctions.outputKunde();
+
+        dbfunctions.startTime();
         dbfunctions.updateTable("Kunde", "Name", "Meier", "Vorname", "Lukas");
+        dbfunctions.stopTime();
+
         dbfunctions.outputKunde();
+
+        dbfunctions.startTime();
         dbfunctions.updateTablePS("Kunde", "Name", "Scholz", "Vorname", "Lukas");
+        dbfunctions.stopTime();
+
         dbfunctions.outputKunde();
 
-        long startTimeStatementSelect = System.nanoTime();
+        dbfunctions.startTime();
         dbfunctions.selectKunde("Scholz");
-        long stopTimeStatementSelect = System.nanoTime();
-        long timeStatementSelect = stopTimeStatementSelect - startTimeStatementSelect;
-        System.out.println("Zeit SELECT Statement: " + timeStatementSelect);
+        dbfunctions.stopTime();
 
-        long startTimePSSelect = System.nanoTime();
+        dbfunctions.startTime();
         dbfunctions.selectKundePS("Scholz");
-        long stopTimePSSelect = System.nanoTime();
-        long timePSSelect = stopTimePSSelect - startTimePSSelect;
-        System.out.println("Zeit SELECT PreparedStatement: " + timePSSelect);
+        dbfunctions.stopTime();
 
-        long startTimeStatementDelete = System.nanoTime();
+        dbfunctions.startTime();
         dbfunctions.deleteKundePS("Mustermann");
-        long stopTimeStatementDelete = System.nanoTime();
-        long timeStatementDelete = stopTimeStatementDelete - startTimeStatementDelete;
-        System.out.println("Zeit DELETE Statement: " + timeStatementDelete);
+        dbfunctions.stopTime();
 
         dbfunctions.outputKunde();
+
         dbfunctions.insertKunde("Mustermann", "Max", 12345, "Berlin", "Deutschland", "Musterstraße 123");
 
-        long startTimePreparedStatementDelete = System.nanoTime();
+        dbfunctions.startTime();
         dbfunctions.deleteKundePS("Scholz");
-        long stopTimePreparedStatementDelete = System.nanoTime();
-        long timePreparedStatementDelete = stopTimePreparedStatementDelete -startTimePreparedStatementDelete;
-        System.out.println("Zeit DELETE PreparedStatement: " + timePreparedStatementDelete);
+        dbfunctions.stopTime();
 
         dbfunctions.outputKunde();
         dbfunctions.emptyTable("Kunde");
