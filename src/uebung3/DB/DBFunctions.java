@@ -1,7 +1,6 @@
 package uebung3.DB;
 
-import uebung3.DTO.Bestellung;
-import uebung3.DTO.Kunde;
+import uebung3.DTO.*;
 import uebung3.secrets;
 
 import java.sql.*;
@@ -31,36 +30,7 @@ public class DBFunctions implements secrets {
         return conn;
     }
 
-    //insert Statement
-    public static void insertKunde(String name, String vorname, int plz, String ort, String land, String strassehnr) throws SQLException {
-        Connection conn = conn();
-        String insert = "INSERT INTO Kunde (Name, Vorname, PLZ, Ort, Land, StrasseHnr) VALUES ('" + name + "', '" + vorname + "', '" + plz +"', '" + ort + "', '" + land + "', '" + strassehnr + "');";
-
-        Statement stmt = conn.createStatement();
-        stmt.executeUpdate(insert);
-        print("Insert Statement");
-        conn.close();
-    }
-
-    //insert PreparedStatement
-    public static void insertKundePS(String name, String vorname, int plz, String ort, String land, String strassehnr) throws SQLException {
-        Connection conn = conn();
-        String insert = "INSERT INTO Kunde (Name, Vorname, PLZ, Ort, Land, StrasseHnr) VALUES (?, ?, ?, ?, ?, ?)";
-
-        PreparedStatement statement = conn.prepareStatement(insert);
-
-        statement.setString(1, name);
-        statement.setString(2, vorname);
-        statement.setInt(3, plz);
-        statement.setString(4, ort);
-        statement.setString(5, land);
-        statement.setString(6, strassehnr);
-
-        statement.executeUpdate();
-        print("Insert Prepared Statement");
-        conn.close();
-    }
-
+    // Store DB-Content to DTO ---------------------------------------
     //select
     public static void getKunden(ArrayList<Kunde> kunden) throws  SQLException {
         Connection conn = conn();
@@ -95,6 +65,78 @@ public class DBFunctions implements secrets {
 
             bestellungen.add(new Bestellung(bID, kID));
         }
+        conn.close();
+    }
+
+    //select
+    public static void getBeinhaltet(ArrayList<Beinhaltet> beinhaltet) throws  SQLException {
+        Connection conn = conn();
+        String query = "SELECT * FROM Beinhaltet";
+        Statement statement = conn.createStatement();
+        ResultSet result = statement.executeQuery(query);
+
+        while(result.next()) {
+            long aID = result.getLong("A-ID");
+            long bID = result.getLong("B-ID");
+
+            beinhaltet.add(new Beinhaltet(aID, bID));
+        }
+        conn.close();
+    }
+
+    //select
+    public static void getArtikel(ArrayList<Artikel> artikel) throws  SQLException {
+        Connection conn = conn();
+        String query = "SELECT * FROM Artikel";
+        Statement statement = conn.createStatement();
+        ResultSet result = statement.executeQuery(query);
+
+        while(result.next()) {
+            long aID = result.getLong("A-ID");
+            String bezeichnung = result.getString("Bezeichnung");
+            double preis = result.getDouble("Preis");
+
+            artikel.add(new Artikel(aID, bezeichnung, preis));
+        }
+        conn.close();
+    }
+
+
+
+
+
+
+
+
+
+
+    //insert Statement
+    public static void insertKunde(String name, String vorname, int plz, String ort, String land, String strassehnr) throws SQLException {
+        Connection conn = conn();
+        String insert = "INSERT INTO Kunde (Name, Vorname, PLZ, Ort, Land, StrasseHnr) VALUES ('" + name + "', '" + vorname + "', '" + plz +"', '" + ort + "', '" + land + "', '" + strassehnr + "');";
+
+        Statement stmt = conn.createStatement();
+        stmt.executeUpdate(insert);
+        print("Insert Statement");
+        conn.close();
+    }
+
+    //insert PreparedStatement
+    public static void insertKundePS(String name, String vorname, int plz, String ort, String land, String strassehnr) throws SQLException {
+        Connection conn = conn();
+        String insert = "INSERT INTO Kunde (Name, Vorname, PLZ, Ort, Land, StrasseHnr) VALUES (?, ?, ?, ?, ?, ?)";
+
+        PreparedStatement statement = conn.prepareStatement(insert);
+
+        statement.setString(1, name);
+        statement.setString(2, vorname);
+        statement.setInt(3, plz);
+        statement.setString(4, ort);
+        statement.setString(5, land);
+        statement.setString(6, strassehnr);
+
+        statement.executeUpdate();
+        print("Insert Prepared Statement");
         conn.close();
     }
 
