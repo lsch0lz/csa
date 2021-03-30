@@ -25,4 +25,12 @@ public class Beinhaltet {
         this.bID = bID;
     }
 
+    @Override
+    public String toString() {
+        return "Beinhaltet{" +
+                "aID=" + aID +
+                ", bID=" + bID +
+                '}';
+    }
+
 }

@@ -25,4 +25,12 @@ public class Bestellung {
         this.kID = kID;
     }
 
+    @Override
+    public String toString() {
+        return "Bestellung{" +
+                "bID=" + bID +
+                ", kID=" + kID +
+                '}';
+    }
+
 }

@@ -71,4 +71,17 @@ public class Kunde {
         this.strasseHnr = strasseHnr;
     }
 
+    @Override
+    public String toString() {
+        return "Kunde{" +
+                "kID=" + kID +
+                ", name='" + name + '\'' +
+                ", vorname='" + vorname + '\'' +
+                ", plz=" + plz +
+                ", ort='" + ort + '\'' +
+                ", land='" + land + '\'' +
+                ", strasseHnr='" + strasseHnr + '\'' +
+                '}';
+    }
+    
 }

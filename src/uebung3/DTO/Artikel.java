@@ -31,4 +31,13 @@ public class Artikel {
         this.preis = preis;
     }
 
+    @Override
+    public String toString() {
+        return "Artikel{" +
+                "aID=" + aID +
+                ", bezeichnung='" + bezeichnung + '\'' +
+                ", preis=" + preis +
+                '}';
+    }
+
 }
