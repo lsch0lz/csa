@@ -11,6 +11,17 @@ public class Artikel {
         this.preis = preis;
     }
 
+    /**
+     * Konstruktor um Entitaet in DB zu speichern, also OHNE ID!
+     * @param bezeichnung
+     * @param preis
+     */
+    public Artikel(String bezeichnung, double preis) {
+        this.aID = -1;
+        this.bezeichnung = bezeichnung;
+        this.preis = preis;
+    }
+
     public long getaID() {
         return aID;
     }

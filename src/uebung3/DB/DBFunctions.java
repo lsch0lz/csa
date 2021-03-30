@@ -108,7 +108,7 @@ public class DBFunctions implements secrets {
 
     public static void insertBestellung(Bestellung bestellung) throws SQLException {
         Connection conn = conn();
-        String insert = "INSERT INTO Bestellung (B-ID, K-ID) VALUES ('" + bestellung.getbID() + "', '" + bestellung.getkID() + "');";
+        String insert = "INSERT INTO Bestellung (`K-ID`) VALUES (" + bestellung.getkID() + ");";
         Statement stmt = conn.createStatement();
         stmt.executeUpdate(insert);
         conn.close();
@@ -116,7 +116,7 @@ public class DBFunctions implements secrets {
 
     public static void insertBeinhaltet(Beinhaltet beinhaltet) throws SQLException {
         Connection conn = conn();
-        String insert = "INSERT INTO Beinhaltet (A-ID, B-ID) VALUES ('" + beinhaltet.getaID() + "', '" + beinhaltet.getbID() + "');";
+        String insert = "INSERT INTO Beinhaltet (`A-ID`, `B-ID`) VALUES (" + beinhaltet.getaID() + ", " + beinhaltet.getbID() + ");";
         Statement stmt = conn.createStatement();
         stmt.executeUpdate(insert);
         conn.close();
@@ -124,7 +124,7 @@ public class DBFunctions implements secrets {
 
     public static void insertArtikel(Artikel artikel) throws SQLException {
         Connection conn = conn();
-        String insert = "INSERT INTO Artikel (A-ID, Bezeichnung, Preis) VALUES ('" + artikel.getaID() + "', '" + artikel.getBezeichnung() + "', '" + artikel.getPreis() +"');";
+        String insert = "INSERT INTO Artikel (Bezeichnung, Preis) VALUES ('" + artikel.getBezeichnung() + "', " + artikel.getPreis() +");";
         Statement stmt = conn.createStatement();
         stmt.executeUpdate(insert);
         conn.close();
@@ -150,12 +150,11 @@ public class DBFunctions implements secrets {
 
     public static void insertBestellungPS(Bestellung bestellung) throws SQLException {
         Connection conn = conn();
-        String insert = "INSERT INTO Bestellung (B-ID, K-ID) VALUES (?, ?)";
+        String insert = "INSERT INTO Bestellung (`K-ID`) VALUES (?)";
 
         PreparedStatement statement = conn.prepareStatement(insert);
 
-        statement.setLong(1, bestellung.getbID());
-        statement.setLong(2, bestellung.getkID());
+        statement.setLong(1, bestellung.getkID());
 
         statement.executeUpdate();
         conn.close();
@@ -163,7 +162,7 @@ public class DBFunctions implements secrets {
 
     public static void insertBeinhaltetPS(Beinhaltet beinhaltet) throws SQLException {
         Connection conn = conn();
-        String insert = "INSERT INTO Beinhaltet (A-ID, B-ID) VALUES (?, ?)";
+        String insert = "INSERT INTO Beinhaltet (`A-ID`, `B-ID`) VALUES (?, ?)";
 
         PreparedStatement statement = conn.prepareStatement(insert);
 
@@ -176,13 +175,12 @@ public class DBFunctions implements secrets {
 
     public static void insertArtikelPS(Artikel artikel) throws SQLException {
         Connection conn = conn();
-        String insert = "INSERT INTO Artikel (A-ID, Bezeichnung, Preis) VALUES (?, ?, ?)";
+        String insert = "INSERT INTO Artikel (Bezeichnung, Preis) VALUES (?, ?)";
 
         PreparedStatement statement = conn.prepareStatement(insert);
 
-        statement.setLong(1, artikel.getaID());
-        statement.setString(2, artikel.getBezeichnung());
-        statement.setDouble(3, artikel.getPreis());
+        statement.setString(1, artikel.getBezeichnung());
+        statement.setDouble(2, artikel.getPreis());
 
         statement.executeUpdate();
         conn.close();
@@ -192,7 +190,7 @@ public class DBFunctions implements secrets {
     public static void emptyTable(String table) throws SQLException {
         Connection conn = conn();
 
-        String delete = "DELETE FROM `" + table + "`;";
+        String delete = "TRUNCATE TABLE `" + table + "`;";
         Statement stmt = conn.createStatement();
         stmt.execute(delete);
 
@@ -201,50 +199,32 @@ public class DBFunctions implements secrets {
 
     //update Statement
     public static void updateEntity(Object entity) throws Exception {
-        if(entity.getClass().getName().equals("Kunde")) {
+        Connection conn = conn();
+        String update = "";
 
-        } else if(entity.getClass().getName().equals("Bestellung")) {
+        String praefix = "uebung3.DTO.";
 
-        } else if(entity.getClass().getName().equals("Beinhaltet")) {
+        if(entity.getClass().getName().equals(praefix + "Kunde")) {
+            Kunde kunde = (Kunde) entity;
+            update = "UPDATE Kunde SET Name='" + kunde.getName() + "', Vorname='" + kunde.getVorname() + "', PLZ= " + kunde.getPlz() + ", Ort='" + kunde.getOrt() + "', Land='" + kunde.getLand() + "', StrasseHnr='" + kunde.getStrasseHnr() + "' WHERE `K-ID`=" + kunde.getkID() + ";";
 
-        } else if(entity.getClass().getName().equals("Artikel")) {
+        } else if(entity.getClass().getName().equals(praefix + "Bestellung")) {
+            throw new Exception("Entitaet noch nicht implementiert!");
+
+        } else if(entity.getClass().getName().equals(praefix + "Beinhaltet")) {
+            throw new Exception("Entitaet noch nicht implementiert!");
+
+        } else if(entity.getClass().getName().equals(praefix + "Artikel")) {
+            Artikel artikel = (Artikel) entity;
+            update = "UPDATE Artikel SET Bezeichnung='" + artikel.getBezeichnung() + "', Preis=" + artikel.getPreis() + " WHERE `A-ID`=" + artikel.getaID() + ";";
 
         } else {
-            throw new Exception("Keine gültige Entität übergeben!");
+            throw new Exception("Keine gültige Entitaet übergeben!");
+
         }
-    }
 
-
-    //update Statement
-    public static void updateTable(String table, String changingColumn, String changingValue, String column, String value) throws SQLException {
-        Connection conn = conn();
-
-        String update = "UPDATE "  + table  + " SET " +  changingColumn + "= " + "'" + changingValue + "'" + " WHERE " + column + "= " + "'" + value + "'" + ";";
         Statement stmt = conn.createStatement();
-        print("Verändere Tabelle '" + table + "'.");
         stmt.execute(update);
-        print("Update Statement");
-        conn.close();
-
-
-
-    }
-
-    //update PreparedStatement
-    public static void updateTablePS(String table, String changingColumn, String changingValue, String column, String value) throws SQLException {
-
-        Connection conn = conn();
-
-        PreparedStatement ps = conn.prepareStatement("UPDATE Kunde SET Name= ? WHERE Vorname= ?;");
-
-        ps.setString(1, changingValue);
-        ps.setString(2, value);
-
-        print("Verändere Tabelle '" + table + "'.");
-
-        ps.executeUpdate();
-        ps.close();
-        print("Update PreparedStatment");
         conn.close();
     }
 
@@ -253,7 +233,7 @@ public class DBFunctions implements secrets {
 
 
 
-
+    // Alte Methoden =====================================================
 
     public static void selectKunde(String name) throws SQLException{
         Connection conn = conn();

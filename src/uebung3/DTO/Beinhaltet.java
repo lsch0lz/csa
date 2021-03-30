@@ -4,6 +4,11 @@ public class Beinhaltet {
     private long aID;
     private long bID;
 
+    public Beinhaltet(long aID, long bID) {
+        this.aID = aID;
+        this.bID = bID;
+    }
+
     public long getaID() {
         return aID;
     }
@@ -17,11 +22,6 @@ public class Beinhaltet {
     }
 
     public void setbID(long bID) {
-        this.bID = bID;
-    }
-
-    public Beinhaltet(long aID, long bID) {
-        this.aID = aID;
         this.bID = bID;
     }
 

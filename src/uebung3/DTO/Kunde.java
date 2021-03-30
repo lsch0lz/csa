@@ -19,6 +19,25 @@ public class Kunde {
         this.strasseHnr = strasseHnr;
     }
 
+    /**
+     * Konstruktor um Entitaet in DB zu speichern, also OHNE ID!
+     * @param name
+     * @param vorname
+     * @param plz
+     * @param ort
+     * @param land
+     * @param strasseHnr
+     */
+    public Kunde(String name, String vorname, int plz, String ort, String land, String strasseHnr) {
+        this.kID = -1;
+        this.name = name;
+        this.vorname = vorname;
+        this.plz = plz;
+        this.ort = ort;
+        this.land = land;
+        this.strasseHnr = strasseHnr;
+    }
+
     public long getkID() {
         return kID;
     }

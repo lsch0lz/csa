@@ -9,6 +9,16 @@ public class Bestellung {
         this.kID = kID;
     }
 
+    /**
+     * Konstruktor um Entitaet in DB zu speichern, also OHNE ID!
+     *
+     * @param kID
+     */
+    public Bestellung(long kID) {
+        this.bID = -1;
+        this.kID = kID;
+    }
+
     public long getbID() {
         return bID;
     }
