@@ -61,7 +61,7 @@ public class DBFunctions implements secrets {
     }
 
     //select
-    public static void outputKunde(ArrayList<Kunde> kunden) throws  SQLException {
+    public static void getKunden(ArrayList<Kunde> kunden) throws  SQLException {
         Connection conn = conn();
         String query = "SELECT * FROM Kunde";
         Statement statement = conn.createStatement();

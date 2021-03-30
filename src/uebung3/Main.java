@@ -1,6 +1,5 @@
 package uebung3;
 
-import uebung3.DB.DBFunctions;
 import uebung3.DTO.*;
 
 import java.sql.*;
@@ -21,7 +20,7 @@ public class Main implements secrets {
      * @throws SQLException
      */
     public static void getDBContent() throws SQLException {
-        outputKunde(kunden);
+        getKunden(kunden);
     }
 
     public static void main(String[] args) throws Exception {
