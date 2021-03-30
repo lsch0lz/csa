@@ -4,11 +4,12 @@ import uebung3.secrets;
 
 import java.sql.*;
 
-public class dbfunctions implements secrets {
+public class DBFunctions implements secrets {
 
     public static void print(String msg){
         System.out.println(msg);
     }
+
     public static long startTime() {
         long start = System.nanoTime();
         return start;
@@ -21,6 +22,7 @@ public class dbfunctions implements secrets {
         print("Zeit des Querys: " + time);
         print("");
     }
+
     public static Connection conn() throws SQLException{
         Connection conn = DriverManager.getConnection(url, user, password);
         return conn;

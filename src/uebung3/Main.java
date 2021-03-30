@@ -1,6 +1,6 @@
 package uebung3;
 
-import uebung3.DB.dbfunctions;
+import uebung3.DB.DBFunctions;
 
 import java.sql.*;
 
@@ -8,51 +8,51 @@ public class Main implements secrets {
 
     public static void main(String[] args) throws SQLException {
 
-        dbfunctions.startTime();
-        dbfunctions.insertKunde("Mustermann", "Max", 12345, "Berlin", "Deutschland", "Musterstraße 123");
-        dbfunctions.stopTime();
+        DBFunctions.startTime();
+        DBFunctions.insertKunde("Mustermann", "Max", 12345, "Berlin", "Deutschland", "Musterstraße 123");
+        DBFunctions.stopTime();
 
-        dbfunctions.startTime();
-        dbfunctions.insertKundePS("Scholz", "Lukas", 10315, "Berlin", "Deutschland", "Hauptstrasse 10");
-        dbfunctions.stopTime();
+        DBFunctions.startTime();
+        DBFunctions.insertKundePS("Scholz", "Lukas", 10315, "Berlin", "Deutschland", "Hauptstrasse 10");
+        DBFunctions.stopTime();
 
-        dbfunctions.outputKunde();
+        DBFunctions.outputKunde();
 
-        dbfunctions.startTime();
-        dbfunctions.updateTable("Kunde", "Name", "Meier", "Vorname", "Lukas");
-        dbfunctions.stopTime();
+        DBFunctions.startTime();
+        DBFunctions.updateTable("Kunde", "Name", "Meier", "Vorname", "Lukas");
+        DBFunctions.stopTime();
 
-        dbfunctions.outputKunde();
+        DBFunctions.outputKunde();
 
-        dbfunctions.startTime();
-        dbfunctions.updateTablePS("Kunde", "Name", "Scholz", "Vorname", "Lukas");
-        dbfunctions.stopTime();
+        DBFunctions.startTime();
+        DBFunctions.updateTablePS("Kunde", "Name", "Scholz", "Vorname", "Lukas");
+        DBFunctions.stopTime();
 
-        dbfunctions.outputKunde();
+        DBFunctions.outputKunde();
 
-        dbfunctions.startTime();
-        dbfunctions.selectKunde("Scholz");
-        dbfunctions.stopTime();
+        DBFunctions.startTime();
+        DBFunctions.selectKunde("Scholz");
+        DBFunctions.stopTime();
 
-        dbfunctions.startTime();
-        dbfunctions.selectKundePS("Scholz");
-        dbfunctions.stopTime();
+        DBFunctions.startTime();
+        DBFunctions.selectKundePS("Scholz");
+        DBFunctions.stopTime();
 
-        dbfunctions.startTime();
-        dbfunctions.deleteKundePS("Mustermann");
-        dbfunctions.stopTime();
+        DBFunctions.startTime();
+        DBFunctions.deleteKundePS("Mustermann");
+        DBFunctions.stopTime();
 
-        dbfunctions.outputKunde();
+        DBFunctions.outputKunde();
 
-        dbfunctions.insertKunde("Mustermann", "Max", 12345, "Berlin", "Deutschland", "Musterstraße 123");
+        DBFunctions.insertKunde("Mustermann", "Max", 12345, "Berlin", "Deutschland", "Musterstraße 123");
 
-        dbfunctions.startTime();
-        dbfunctions.deleteKundePS("Scholz");
-        dbfunctions.stopTime();
+        DBFunctions.startTime();
+        DBFunctions.deleteKundePS("Scholz");
+        DBFunctions.stopTime();
 
-        dbfunctions.outputKunde();
-        dbfunctions.emptyTable("Kunde");
-        dbfunctions.outputKunde();
+        DBFunctions.outputKunde();
+        DBFunctions.emptyTable("Kunde");
+        DBFunctions.outputKunde();
 
     }
 
