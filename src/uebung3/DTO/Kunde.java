@@ -83,5 +83,5 @@ public class Kunde {
                 ", strasseHnr='" + strasseHnr + '\'' +
                 '}';
     }
-    
+
 }

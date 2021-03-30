@@ -1,8 +1,10 @@
 package uebung3.DB;
 
+import uebung3.DTO.Kunde;
 import uebung3.secrets;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBFunctions implements secrets {
 
@@ -53,24 +55,16 @@ public class DBFunctions implements secrets {
         statement.setString(5, land);
         statement.setString(6, strassehnr);
 
-
         statement.executeUpdate();
         print("Insert Prepared Statement");
         conn.close();
     }
 
     //select
-    public static void outputKunde() throws  SQLException{
-        print("--------------------------");
-        print("Gebe Tabelle 'Kunde' aus: ");
-        print(" ");
-
+    public static void outputKunde(ArrayList<Kunde> kunden) throws  SQLException {
         Connection conn = conn();
-
         String query = "SELECT * FROM Kunde";
-
         Statement statement = conn.createStatement();
-
         ResultSet result = statement.executeQuery(query);
 
         while(result.next()) {
@@ -82,15 +76,11 @@ public class DBFunctions implements secrets {
             int k_id = result.getInt("K-ID");
             String strassehnr = result.getString("StrasseHnr");
 
+            kunden.add(new Kunde(k_id, name, vorname, plz, ort, land, strassehnr));
 
-            print(name + " " + vorname + " " + plz + " " + ort + " " + land + " " + k_id + " " + strassehnr);
+            //print(name + " " + vorname + " " + plz + " " + ort + " " + land + " " + k_id + " " + strassehnr);
         }
         conn.close();
-
-        print("");
-        print("Ende der Tabelle 'Kunde'.");
-        print("--------------------------");
-        print("");
     }
 
     //delete Statement
