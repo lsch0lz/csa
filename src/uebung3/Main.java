@@ -32,25 +32,25 @@ public class Main implements secrets {
         System.out.println("");
         System.out.println("Kunden aus DB:");
         for (int i = 0; i < kunden.size(); i++) {
-            System.out.println((kunden.toString()));
+            System.out.println((kunden.get(i).toString()));
         }
 
         System.out.println("");
         System.out.println("Bestellungen aus DB:");
         for (int i = 0; i < bestellungen.size(); i++) {
-            System.out.println((bestellungen.toString()));
+            System.out.println((bestellungen.get(i).toString()));
         }
 
         System.out.println("");
         System.out.println("Beinhaltet aus DB:");
         for (int i = 0; i < beinhaltet.size(); i++) {
-            System.out.println((beinhaltet.toString()));
+            System.out.println((beinhaltet.get(i).toString()));
         }
 
         System.out.println("");
         System.out.println("Artikel aus DB:");
         for (int i = 0; i < artikel.size(); i++) {
-            System.out.println((artikel.toString()));
+            System.out.println((artikel.get(i).toString()));
         }
 
         /**
