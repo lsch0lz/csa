@@ -7,18 +7,17 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class DBFunctions implements secrets {
+    static long start = -1;
 
     public static void print(String msg){
         System.out.println(msg);
     }
 
-    public static long startTime() {
-        long start = System.nanoTime();
-        return start;
+    public static void startTime() {
+        start = System.nanoTime();
     }
 
     public static void stopTime(){
-        long start = startTime();
         long stop = System.nanoTime();
         long time = stop - start;
         print("Zeit des Querys: " + time);
